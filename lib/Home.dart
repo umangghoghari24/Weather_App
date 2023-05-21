@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/citys.dart';
+import 'package:weather_app/grid.dart';
 class weather extends StatefulWidget {
   const weather({Key? key}) : super(key: key);
 
@@ -27,6 +28,7 @@ class _weatherState extends State<weather> {
               color: Colors.black,)),
           IconButton(
               onPressed: () {
+                Navigator.pushReplacement((context), MaterialPageRoute(builder: (context)=>gird()));
                 showModalBottomSheet(
                     context: context,
                     builder: (context) =>
@@ -168,126 +170,126 @@ class _weatherState extends State<weather> {
           padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 20),
           child: SingleChildScrollView(
             child: Column(
-                  children: [
-                    Text('Select Your One Cities',style: TextStyle(fontSize: 20),),
-                    Divider(thickness: 3,),
-                    RadioListTile(
-                      title: Text('Ahmedabad'),
-                      value: 1,
-                      groupValue: Selected,
-                      onChanged: (value){
-                        setState(() {
-                          Selected = 1 ;
-                        });
-                      },
-                      activeColor: Colors.black,
-                    ),
-                    RadioListTile(
-                      title: Text('surat'),
-                      value: 2,
-                      groupValue: Selected,
-                      onChanged: (value) {
-                        setState(() {
-                          Selected = 2;
-                        });
-                      },
-                      activeColor: Colors.black,
-                    ),
-                    RadioListTile(
-                      title: Text('Vadodara'),
-                      value: 3,
-                      groupValue: Selected,
-                      onChanged: (value){
-                        setState(() {
-                          Selected = 3;
-                        });
-                      },
-                      activeColor: Colors.black,
-                    ),
-                    RadioListTile(
-                      title: Text('Rajkot'),
-                      value: 4,
-                      groupValue: Selected,
-                      onChanged: (value){
-                        setState(() {
-                          Selected = 4;
-                        });
-                      },
-                      activeColor: Colors.black,
-                    ),
-                    RadioListTile(
-                      title: Text('Bhavnagar'),
-                      value: 5,
-                      groupValue: Selected,
-                      onChanged: (value){
-                        setState(() {
-                          Selected = 5;
-                        });
-                      },
-                      activeColor: Colors.black,
-                    ),
-                    RadioListTile(
-                      title: Text('Jamnagar'),
-                      value: 6,
-                      groupValue: Selected,
-                      onChanged: (value){
-                        setState(() {
-                          Selected = 6;
-                        });
-                      },
-                      activeColor: Colors.black,
-                    ),
-                    RadioListTile(
-                        title: Text('Gandhinagar'),
-                        value: 7,
-                        groupValue: Selected,
-                        onChanged: (value) {
-                      setState(() {
-                        Selected = 7;
-                      });
-                        }),
-                    RadioListTile(
-                        title: Text('Junagadh'),
-                        value: 8,
-                        groupValue: Selected,
-                        onChanged: (value) {
-                      setState(() {
-                        Selected = 8;
-                      });
-                        })
-                    // SingleChildScrollView(child: city(Colors.black, 'Ahmedabad')),
-                    // city(Colors.black, 'Surat'),
-                    // city( Colors.black, 'Vadodara',),
-                    // city( Colors.black, 'Rajkot',),
-                    // city( Colors.black, 'Bhavnagar',),
-                    // city( Colors.black, 'Jamnagar',),
-                    // city( Colors.black, 'Gandhinagar',),
-                    // city( Colors.black, 'Junagadh',),
-                    // city( Colors.black, 'Gandhidham',),
-
-                        // 10.	Anand	47.89	385,291	288,092
-                        // 11.	Navsari	43.716	367,322	292,719
-                        // 12.	Morbi	46.58	360,001	251,859
-                        // 13.	Nadiad	45.16	330,400	225,071
-                        // 14.	Surendranagar	58.60	298,692	253,606
-                        // 15.	Bharuch	43.80	288,244	223,647
-                        // 16.	Mehsana	31.76	257,043	190,753
-                        // 17.	Bhuj	39.79	251,489	219,514
-                        // 18.	Porbandar	50.48	243,584	217,203
-                        // 19.	Palanpur	39.50	242,936	141,532
-                        // 20.	Valsad	24.10	231,756	170,060
-                        // 21.	Vapi	31.35	230,598	163,630
-                        // 22.	Gondal	74.48	189,797	173,353
-                        // 23.	Veraval	39.95	185,797	156,696
-                        // 24.	Godhra	20.16	173,014	143,644
-                        // 25.	Patan	17.82	171,614	133,744
-                        // 26.	Kalol	25.42	171,395	133,737
-                        // 27.	Dahod	14.00	159,326	130,505
-                        // 28.	Botad	10.36	158,985	130,327
-                        // 29.	Amreli	65.00	146,014	117,967
-                        // 30.	Deesa	20.81	135,869	111,160
-                        // 31.	Jetpur)
-                  ],
+                  // children: [
+                  //   Text('Select Your One Cities',style: TextStyle(fontSize: 20),),
+                  //   Divider(thickness: 3,),
+                  //   RadioListTile(
+                  //     title: Text('Ahmedabad'),
+                  //     value: 1,
+                  //     groupValue: Selected,
+                  //     onChanged: (value){
+                  //       setState(() {
+                  //         Selected = 1 ;
+                  //       });
+                  //     },
+                  //     activeColor: Colors.black,
+                  //   ),
+                  //   RadioListTile(
+                  //     title: Text('surat'),
+                  //     value: 2,
+                  //     groupValue: Selected,
+                  //     onChanged: (value) {
+                  //       setState(() {
+                  //         Selected = 2;
+                  //       });
+                  //     },
+                  //     activeColor: Colors.black,
+                  //   ),
+                  //   RadioListTile(
+                  //     title: Text('Vadodara'),
+                  //     value: 3,
+                  //     groupValue: Selected,
+                  //     onChanged: (value){
+                  //       setState(() {
+                  //         Selected = 3;
+                  //       });
+                  //     },
+                  //     activeColor: Colors.black,
+                  //   ),
+                  //   RadioListTile(
+                  //     title: Text('Rajkot'),
+                  //     value: 4,
+                  //     groupValue: Selected,
+                  //     onChanged: (value){
+                  //       setState(() {
+                  //         Selected = 4;
+                  //       });
+                  //     },
+                  //     activeColor: Colors.black,
+                  //   ),
+                  //   RadioListTile(
+                  //     title: Text('Bhavnagar'),
+                  //     value: 5,
+                  //     groupValue: Selected,
+                  //     onChanged: (value){
+                  //       setState(() {
+                  //         Selected = 5;
+                  //       });
+                  //     },
+                  //     activeColor: Colors.black,
+                  //   ),
+                  //   RadioListTile(
+                  //     title: Text('Jamnagar'),
+                  //     value: 6,
+                  //     groupValue: Selected,
+                  //     onChanged: (value){
+                  //       setState(() {
+                  //         Selected = 6;
+                  //       });
+                  //     },
+                  //     activeColor: Colors.black,
+                  //   ),
+                  //   RadioListTile(
+                  //       title: Text('Gandhinagar'),
+                  //       value: 7,
+                  //       groupValue: Selected,
+                  //       onChanged: (value) {
+                  //     setState(() {
+                  //       Selected = 7;
+                  //     });
+                  //       }),
+                  //   RadioListTile(
+                  //       title: Text('Junagadh'),
+                  //       value: 8,
+                  //       groupValue: Selected,
+                  //       onChanged: (value) {
+                  //     setState(() {
+                  //       Selected = 8;
+                  //     });
+                  //       })
+                  //   // SingleChildScrollView(child: city(Colors.black, 'Ahmedabad')),
+                  //   // city(Colors.black, 'Surat'),
+                  //   // city( Colors.black, 'Vadodara',),
+                  //   // city( Colors.black, 'Rajkot',),
+                  //   // city( Colors.black, 'Bhavnagar',),
+                  //   // city( Colors.black, 'Jamnagar',),
+                  //   // city( Colors.black, 'Gandhinagar',),
+                  //   // city( Colors.black, 'Junagadh',),
+                  //   // city( Colors.black, 'Gandhidham',),
+                  //
+                  //       // 10.	Anand	47.89	385,291	288,092
+                  //       // 11.	Navsari	43.716	367,322	292,719
+                  //       // 12.	Morbi	46.58	360,001	251,859
+                  //       // 13.	Nadiad	45.16	330,400	225,071
+                  //       // 14.	Surendranagar	58.60	298,692	253,606
+                  //       // 15.	Bharuch	43.80	288,244	223,647
+                  //       // 16.	Mehsana	31.76	257,043	190,753
+                  //       // 17.	Bhuj	39.79	251,489	219,514
+                  //       // 18.	Porbandar	50.48	243,584	217,203
+                  //       // 19.	Palanpur	39.50	242,936	141,532
+                  //       // 20.	Valsad	24.10	231,756	170,060
+                  //       // 21.	Vapi	31.35	230,598	163,630
+                  //       // 22.	Gondal	74.48	189,797	173,353
+                  //       // 23.	Veraval	39.95	185,797	156,696
+                  //       // 24.	Godhra	20.16	173,014	143,644
+                  //       // 25.	Patan	17.82	171,614	133,744
+                  //       // 26.	Kalol	25.42	171,395	133,737
+                  //       // 27.	Dahod	14.00	159,326	130,505
+                  //       // 28.	Botad	10.36	158,985	130,327
+                  //       // 29.	Amreli	65.00	146,014	117,967
+                  //       // 30.	Deesa	20.81	135,869	111,160
+                  //       // 31.	Jetpur)
+                  // ],
             ),
           ),
         ),
