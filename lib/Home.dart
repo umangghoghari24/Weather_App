@@ -43,7 +43,9 @@ class _weatherState extends State<weather> {
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/image/sky.jpg"), fit: BoxFit.fill),
+                image: AssetImage("assets/image/weatherbg.jpg"),
+                fit: BoxFit.fitHeight
+            ),
           ),
           child: Padding(
             padding: const EdgeInsets.all(12),
@@ -54,14 +56,16 @@ class _weatherState extends State<weather> {
                   'Surat',
                   style: TextStyle(fontSize: 30),
                 ),
+                SizedBox(height: 5,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.network(
-                      'https://previews.123rf.com/images/chudtsankov/chudtsankov1207/chudtsankov120700038/14510469-summer-hot-sun.jpg',
-                      width: 90,
-                      height: 90,
-                    ),
+                    Icon(Icons.sunny,size: 80,color: Colors.yellow,),
+                    // Image.network(
+                    //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxpv_PoTqYZ_bu9KiwaxRmBt1jK4Y4s6BvDw&usqp=CAU',
+                    //   width: 90,
+                    //   height: 90,
+                    // ),
                     Row(
                       children: [
                         RichText(
@@ -160,7 +164,7 @@ class _weatherState extends State<weather> {
                         onPressed: () {},
                         child: Text(
                           'View all',
-                          style: TextStyle(color: Colors.blue, fontSize: 10),
+                          style: TextStyle(color: Colors.blue, fontSize: 15),
                         ))
                   ],
                 ),
