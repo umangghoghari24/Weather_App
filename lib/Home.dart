@@ -18,7 +18,7 @@ class _weatherState extends State<weather> {
   @override
   int Selected = 0;
   var mydata;
-  var id, base, main, icon, temp, pressure, temp_max, temp_min, speed;
+  var  main, icon, temp, pressure, temp_max, temp_min, speed;
   bool show = true;
 
   var image;
@@ -27,9 +27,7 @@ class _weatherState extends State<weather> {
     var citys = city.text;
     var key = 'ff0d0154a0fbf7736676e415048f620b';
     var response = await http.get(Uri.parse(
-        'https://api.openweathermap.org/data/2.5/forecast?q=surat&appid=$key'
-      //  'https://api.openweathermap.org/data/2.5/weather?q=surat&appid=$key'
-    ));
+        'https://api.openweathermap.org/data/2.5/forecast?q=surat&appid=$key'));
     if (response.statusCode == 200) {
       var data = await jsonDecode(response.body);
       setState(() {
