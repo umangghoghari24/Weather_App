@@ -18,7 +18,7 @@ class _weatherState extends State<weather> {
   @override
   int Selected = 0;
   var mydata;
-  var id, base, main, icon, temp, pressure, temp_max, temp_min;
+  var id, base, main, icon, temp, pressure, temp_max, temp_min, speed;
   bool show = true;
 
 
@@ -91,7 +91,7 @@ class _weatherState extends State<weather> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(Icons.sunny,size: 80,color: Colors.yellow,),
+                    Icon(Icons.sunny,size: 65,color: Colors.yellow,),
                     // Image.network(
                     //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxpv_PoTqYZ_bu9KiwaxRmBt1jK4Y4s6BvDw&usqp=CAU',
                     //   width: 90,
@@ -134,17 +134,32 @@ class _weatherState extends State<weather> {
                         icon: Icon(
                           Icons.cloud,
                         )),
-                    Text('70%'),
+                    // Text(
+                    //   mydata!=null? mydata['weather']['icon'].toString():'',
+                    //   style:
+                    //   TextStyle(fontSize: 16, color: Colors.black),
+                    // ),
+                  //  Text('70%'),
                     IconButton(
                         onPressed: () {},
                         icon: Icon(Icons.water_drop_outlined)),
-                    Text('40%'),
+                    // Text('40%'),
+                    Text(
+                      mydata!=null? mydata['main']['pressure'].toString():'',
+                      style:
+                      TextStyle(fontSize: 16, color: Colors.black),
+                    ),
                     IconButton(
                         onPressed: () {},
                         icon: Icon(
                           Icons.wind_power,
                         )),
-                    Text('3.5km/h'),
+                   // Text('3.5km/h'),
+                    Text(
+                      mydata!=null? mydata['wind']['speed'].toString():'',
+                      style:
+                      TextStyle(fontSize: 16, color: Colors.black),
+                    )
                   ],
                 ),
                 Divider(
@@ -173,7 +188,12 @@ class _weatherState extends State<weather> {
                                   color: Colors.yellowAccent,
                                   size: 50,
                                 ),
-                                Text('35\u2103'),
+                                Text(
+                                  mydata!=null? mydata['main']['temp'].toString():'',
+                                  style:
+                                  TextStyle(fontSize: 13, color: Colors.black),
+                                )
+                              //  Text('35\u2103'),
                               ],
                             ),
                           ),
@@ -229,16 +249,26 @@ class _weatherState extends State<weather> {
                                   )),
                               Text('36\u2103'),
                               Padding(padding: EdgeInsets.only(right: 100)),
-                              Text(
-                                mydata!=null? mydata['main']['temp_max'].toString():'',
-                                style:
-                                TextStyle(fontSize: 15, color: Colors.black),
+                              Column(
+                                children: [
+                                  Text('Max'),
+                                  Text(
+                                    mydata!=null? mydata['main']['temp_max'].toString():'',
+                                    style:
+                                    TextStyle(fontSize: 15, color: Colors.black),
+                                  ),
+                                ],
                               ),
                               Text('/'),
-                              Text(
-                                mydata!=null? mydata['main']['temp_min'].toString():'',
-                                style:
-                                TextStyle(fontSize: 15, color: Colors.black),
+                              Column(
+                                children: [
+                                  Text('Min'),
+                                  Text(
+                                    mydata!=null? mydata['main']['temp_min'].toString():'',
+                                    style:
+                                    TextStyle(fontSize: 15, color: Colors.black),
+                                  ),
+                                ],
                               ),
                               // RichText(
                               //     text: TextSpan(children: [
