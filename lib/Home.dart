@@ -21,18 +21,23 @@ class _weatherState extends State<weather> {
   var id, base, main, icon, temp, pressure, temp_max, temp_min, speed;
   bool show = true;
 
+  var image;
 
   Future<void> getData() async {
     var citys = city.text;
     var key = 'ff0d0154a0fbf7736676e415048f620b';
     var response = await http.get(Uri.parse(
-        'https://api.openweathermap.org/data/2.5/weather?q=surat&appid=$key'));
+        'https://api.openweathermap.org/data/2.5/forecast?q=surat&appid=$key'
+      //  'https://api.openweathermap.org/data/2.5/weather?q=surat&appid=$key'
+    ));
     if (response.statusCode == 200) {
       var data = await jsonDecode(response.body);
       setState(() {
         mydata = data ;
+         image = data['list'][0]['weather'][0]['icon'].toString();
       });
-      print(mydata);
+   //   print(mydata["list"][0]["weather"][0]["icon"]);
+       print('https://api.openweathermap.org/img/w/$image.png');
     } else {
       print('something went wrong');
     }
@@ -40,11 +45,11 @@ class _weatherState extends State<weather> {
 
   TextEditingController city = TextEditingController();
 
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
    getData();
   }
 
@@ -100,7 +105,7 @@ class _weatherState extends State<weather> {
                     Row(
                       children: [
                         Text(
-                          mydata!=null? mydata['main']['temp'].toString():'',
+                          mydata!=null? mydata['list'][0]['main']['temp'].toString():'',
                           style:
                           TextStyle(fontSize: 50, color: Colors.black),
                         ),
@@ -131,10 +136,14 @@ class _weatherState extends State<weather> {
                   children: [
                     IconButton(
                         onPressed: () {},
-                        icon: Icon(
-                          Icons.cloud,
-                        )),
-                    // Text(
+                        icon: Visibility(
+                          visible: image!=null,
+                          child: SizedBox(
+                            height: 50,width: 50,
+                              child: Image.network('https://api.openweathermap.org/img/w/$image.png')),
+                        ),
+                    ),
+                    //  Text(
                     //   mydata!=null? mydata['weather']['icon'].toString():'',
                     //   style:
                     //   TextStyle(fontSize: 16, color: Colors.black),
@@ -145,7 +154,7 @@ class _weatherState extends State<weather> {
                         icon: Icon(Icons.water_drop_outlined)),
                     // Text('40%'),
                     Text(
-                      mydata!=null? mydata['main']['pressure'].toString():'',
+                      mydata!=null? mydata['list'][0]['main']['pressure'].toString():'',
                       style:
                       TextStyle(fontSize: 16, color: Colors.black),
                     ),
@@ -156,7 +165,7 @@ class _weatherState extends State<weather> {
                         )),
                    // Text('3.5km/h'),
                     Text(
-                      mydata!=null? mydata['wind']['speed'].toString():'',
+                      mydata!=null? mydata['list'][0]['wind']['speed'].toString():'',
                       style:
                       TextStyle(fontSize: 16, color: Colors.black),
                     )
@@ -189,7 +198,7 @@ class _weatherState extends State<weather> {
                                   size: 50,
                                 ),
                                 Text(
-                                  mydata!=null? mydata['main']['temp'].toString():'',
+                                  mydata!=null? mydata['list'][0]['main']['temp'].toString():'',
                                   style:
                                   TextStyle(fontSize: 13, color: Colors.black),
                                 )
@@ -253,7 +262,7 @@ class _weatherState extends State<weather> {
                                 children: [
                                   Text('Max'),
                                   Text(
-                                    mydata!=null? mydata['main']['temp_max'].toString():'',
+                                    mydata!=null? mydata['list'][0]['main']['temp_max'].toString():'',
                                     style:
                                     TextStyle(fontSize: 15, color: Colors.black),
                                   ),
@@ -264,7 +273,7 @@ class _weatherState extends State<weather> {
                                 children: [
                                   Text('Min'),
                                   Text(
-                                    mydata!=null? mydata['main']['temp_min'].toString():'',
+                                    mydata!=null? mydata['list'][0]['main']['temp_min'].toString():'',
                                     style:
                                     TextStyle(fontSize: 15, color: Colors.black),
                                   ),
