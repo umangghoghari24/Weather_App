@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/citys.dart';
 import 'package:weather_app/grid.dart';
+import 'package:http/http.dart' as http;
+
 
 class weather extends StatefulWidget {
   const weather({Key? key}) : super(key: key);
@@ -13,8 +17,39 @@ class weather extends StatefulWidget {
 class _weatherState extends State<weather> {
   @override
   int Selected = 0;
+  var mydata;
+  var id, base, main, icon, temp, pressure, temp_max, temp_min;
+  bool show = true;
+
+
+  Future<void> getData() async {
+    var citys = city.text;
+    var key = 'ff0d0154a0fbf7736676e415048f620b';
+    var response = await http.get(Uri.parse(
+        'https://api.openweathermap.org/data/2.5/weather?q=surat&appid=$key'));
+    if (response.statusCode == 200) {
+      var data = await jsonDecode(response.body);
+      setState(() {
+        mydata = data ;
+      });
+      print(mydata);
+    } else {
+      print('something went wrong');
+    }
+  }
+
+  TextEditingController city = TextEditingController();
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   getData();
+  }
 
   Widget build(BuildContext context) {
+
     var date = DateTime.now();
     return Scaffold(
       appBar: AppBar(
@@ -31,10 +66,6 @@ class _weatherState extends State<weather> {
               onPressed: () {
                 Navigator.pushReplacement((context),
                     MaterialPageRoute(builder: (context) => citys()));
-                // showModalBottomSheet(
-                //     context: context,
-                //     builder: (context) =>
-                //         Bottommodal());
               },
               icon: Icon(Icons.add))
         ],
@@ -68,25 +99,30 @@ class _weatherState extends State<weather> {
                     // ),
                     Row(
                       children: [
-                        RichText(
-                            text: TextSpan(children: [
-                          TextSpan(
-                              text: '37\u2103',
-                              style: TextStyle(
-                                  color: Colors.yellow,
-                                  fontSize: 40,
-                                  fontWeight: FontWeight.normal))
-                        ])),
-                        RichText(
-                            text: TextSpan(children: [
-                          TextSpan(
-                              text: 'sunny',
-                              style: TextStyle(
-                                  color: Colors.yellow,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 3))
-                        ]))
+                        Text(
+                          mydata!=null? mydata['main']['temp'].toString():'',
+                          style:
+                          TextStyle(fontSize: 50, color: Colors.black),
+                        ),
+                        // RichText(
+                        //     text: TextSpan(children: [
+                        //   TextSpan(
+                        //       text: '37\u2103',
+                        //       style: TextStyle(
+                        //           color: Colors.yellow,
+                        //           fontSize: 40,
+                        //           fontWeight: FontWeight.normal))
+                        // ])),
+                        // RichText(
+                        //     text: TextSpan(children: [
+                        //   TextSpan(
+                        //       text: 'sunny',
+                        //       style: TextStyle(
+                        //           color: Colors.yellow,
+                        //           fontSize: 16,
+                        //           fontWeight: FontWeight.bold,
+                        //           letterSpacing: 3))
+                        // ]))
                       ],
                     )
                   ],
@@ -192,21 +228,32 @@ class _weatherState extends State<weather> {
                                     size: 20,
                                   )),
                               Text('36\u2103'),
-                              Padding(padding: EdgeInsets.only(right: 115)),
-                              RichText(
-                                  text: TextSpan(children: [
-                                TextSpan(
-                                    text: '39\u2103 /',
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 16))
-                              ])),
-                              RichText(
-                                  text: TextSpan(children: [
-                                TextSpan(
-                                    text: '26\u2103 ',
-                                    style: TextStyle(
-                                        color: Colors.grey, fontSize: 16))
-                              ]))
+                              Padding(padding: EdgeInsets.only(right: 100)),
+                              Text(
+                                mydata!=null? mydata['main']['temp_max'].toString():'',
+                                style:
+                                TextStyle(fontSize: 15, color: Colors.black),
+                              ),
+                              Text('/'),
+                              Text(
+                                mydata!=null? mydata['main']['temp_min'].toString():'',
+                                style:
+                                TextStyle(fontSize: 15, color: Colors.black),
+                              ),
+                              // RichText(
+                              //     text: TextSpan(children: [
+                              //   TextSpan(
+                              //       text: '39\u2103 /',
+                              //       style: TextStyle(
+                              //           color: Colors.black, fontSize: 16))
+                              // ])),
+                              // RichText(
+                              //     text: TextSpan(children: [
+                              //   TextSpan(
+                              //       text: '26\u2103 ',
+                              //       style: TextStyle(
+                              //           color: Colors.grey, fontSize: 16))
+                              // ]))
                             ],
                           ),
                         ),
