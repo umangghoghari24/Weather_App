@@ -142,7 +142,15 @@ class _weatherState extends State<weather> {
                 ),
                 Row(
                   children: [
-
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.water_drop_outlined),color: Colors.white
+                    ),
+                    Text(
+                      mydata!=null? mydata['list'][0]['main']['humidity'].toString():'',
+                      style:
+                      TextStyle(fontSize: 16, color: Colors.white),
+                    ),
                   //  Text('70%'),
                     IconButton(
                         onPressed: () {},
@@ -178,9 +186,6 @@ class _weatherState extends State<weather> {
                       //6,
                       itemBuilder: (BuildContext context, int index) {
                         if(index%4==0) {
-                     //       var hourlyData;
-                     //         var hourlyData = DateFormat().add_jm();
-                     //          var times  = DateFormat.jm().format(DateTime.fromMicrosecondsSinceEpoch(hourlyData.list[index].add_dt!.toInt()));
                           return Container(
                             padding: EdgeInsets.all(11),
                             margin: EdgeInsets.only(right: 4),
