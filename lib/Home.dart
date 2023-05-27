@@ -23,6 +23,7 @@ class _weatherState extends State<weather> {
 
   var image;
 
+
   Future<void> getData() async {
     var citys = city.text;
     var key = 'ff0d0154a0fbf7736676e415048f620b';
@@ -88,13 +89,22 @@ class _weatherState extends State<weather> {
               children: [
                 Text(
                   'Surat',
-                  style: TextStyle(fontSize: 30),
+                  style: TextStyle(fontSize: 30,color: Colors.white),
                 ),
                 SizedBox(height: 5,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(Icons.sunny,size: 65,color: Colors.yellow,),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Visibility(
+                        visible: image!=null,
+                        child: SizedBox(
+                          width: 500,
+                            child: Image.network('https://api.openweathermap.org/img/w/$image.png',)),
+                      ),
+                    ),
+                  //  Icon(Icons.sunny,size: 65,color: Colors.yellow,),
                     // Image.network(
                     //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxpv_PoTqYZ_bu9KiwaxRmBt1jK4Y4s6BvDw&usqp=CAU',
                     //   width: 90,
@@ -105,7 +115,7 @@ class _weatherState extends State<weather> {
                         Text(
                           mydata!=null? mydata['list'][0]['main']['temp'].toString():'',
                           style:
-                          TextStyle(fontSize: 50, color: Colors.black),
+                          TextStyle(fontSize: 50, color: Colors.white),
                         ),
                         // RichText(
                         //     text: TextSpan(children: [
@@ -132,15 +142,15 @@ class _weatherState extends State<weather> {
                 ),
                 Row(
                   children: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: Visibility(
-                          visible: image!=null,
-                          child: SizedBox(
-                            height: 50,width: 50,
-                              child: Image.network('https://api.openweathermap.org/img/w/$image.png')),
-                        ),
-                    ),
+                    // IconButton(
+                    //     onPressed: () {},
+                    //     icon: Visibility(
+                    //       visible: image!=null,
+                    //       child: SizedBox(
+                    //         height: 50,width: 50,
+                    //           child: Image.network('https://api.openweathermap.org/img/w/$image.png')),
+                    //     ),
+                    // ),
                     //  Text(
                     //   mydata!=null? mydata['weather']['icon'].toString():'',
                     //   style:
@@ -149,23 +159,24 @@ class _weatherState extends State<weather> {
                   //  Text('70%'),
                     IconButton(
                         onPressed: () {},
-                        icon: Icon(Icons.water_drop_outlined)),
+                        icon: Icon(Icons.water_drop_outlined),color: Colors.white
+                    ),
                     // Text('40%'),
                     Text(
                       mydata!=null? mydata['list'][0]['main']['pressure'].toString():'',
                       style:
-                      TextStyle(fontSize: 16, color: Colors.black),
+                      TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     IconButton(
                         onPressed: () {},
                         icon: Icon(
-                          Icons.wind_power,
+                          Icons.wind_power,color: Colors.white
                         )),
                    // Text('3.5km/h'),
                     Text(
                       mydata!=null? mydata['list'][0]['wind']['speed'].toString():'',
                       style:
-                      TextStyle(fontSize: 16, color: Colors.black),
+                      TextStyle(fontSize: 16, color: Colors.white),
                     )
                   ],
                 ),
@@ -178,6 +189,10 @@ class _weatherState extends State<weather> {
                       scrollDirection: Axis.horizontal,
                       itemCount: 6,
                       itemBuilder: (BuildContext context, int index) {
+                        var hourlyData;
+                    //    var hourlyData = DateFormat().add_jm();
+                    //     var times  = DateFormat.jm().
+                    //     format(DateTime.fromMicrosecondsSinceEpoch(hourlyData.list[index].add_dt!.toInt()));
                         return Container(
                           padding: EdgeInsets.all(11),
                           margin: EdgeInsets.only(right: 4),
