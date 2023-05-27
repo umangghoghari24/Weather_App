@@ -100,8 +100,8 @@ class _weatherState extends State<weather> {
                       icon: Visibility(
                         visible: image!=null,
                         child: SizedBox(
-                          width: 500,
-                            child: Image.network('https://api.openweathermap.org/img/w/$image.png',)),
+                          height: 300,
+                            child: Image.network('https://api.openweathermap.org/img/w/$image.png')),
                       ),
                     ),
                   //  Icon(Icons.sunny,size: 65,color: Colors.yellow,),
@@ -142,20 +142,7 @@ class _weatherState extends State<weather> {
                 ),
                 Row(
                   children: [
-                    // IconButton(
-                    //     onPressed: () {},
-                    //     icon: Visibility(
-                    //       visible: image!=null,
-                    //       child: SizedBox(
-                    //         height: 50,width: 50,
-                    //           child: Image.network('https://api.openweathermap.org/img/w/$image.png')),
-                    //     ),
-                    // ),
-                    //  Text(
-                    //   mydata!=null? mydata['weather']['icon'].toString():'',
-                    //   style:
-                    //   TextStyle(fontSize: 16, color: Colors.black),
-                    // ),
+
                   //  Text('70%'),
                     IconButton(
                         onPressed: () {},
@@ -187,39 +174,56 @@ class _weatherState extends State<weather> {
                   height: 100,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 6,
+                      itemCount: mydata !=null?mydata["list"].length:0,
+                      //6,
                       itemBuilder: (BuildContext context, int index) {
-                        var hourlyData;
-                    //    var hourlyData = DateFormat().add_jm();
-                    //     var times  = DateFormat.jm().
-                    //     format(DateTime.fromMicrosecondsSinceEpoch(hourlyData.list[index].add_dt!.toInt()));
-                        return Container(
-                          padding: EdgeInsets.all(11),
-                          margin: EdgeInsets.only(right: 4),
-                          decoration: BoxDecoration(
-                              color: Colors.blueAccent,
-                              borderRadius: BorderRadius.circular(12)),
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                Text(
-                                  '${index + 1} AM',
-                                ),
-                                Icon(
-                                  Icons.sunny,
-                                  color: Colors.yellowAccent,
-                                  size: 50,
-                                ),
-                                Text(
-                                  mydata!=null? mydata['list'][0]['main']['temp'].toString():'',
-                                  style:
-                                  TextStyle(fontSize: 13, color: Colors.black),
-                                )
-                              //  Text('35\u2103'),
-                              ],
+                        if(index%4==0) {
+                     //       var hourlyData;
+                     //         var hourlyData = DateFormat().add_jm();
+                     //          var times  = DateFormat.jm().format(DateTime.fromMicrosecondsSinceEpoch(hourlyData.list[index].add_dt!.toInt()));
+                          return Container(
+                            padding: EdgeInsets.all(11),
+                            margin: EdgeInsets.only(right: 4),
+                            decoration: BoxDecoration(
+                                color: Colors.blueAccent,
+                                borderRadius: BorderRadius.circular(12)),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '${index + 1} AM',
+                                  ),
+                                  // Icon(
+                                  //   Icons.sunny,
+                                  //   color: Colors.yellowAccent,
+                                  //   size: 50,
+                                  // ),
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Visibility(
+                                      visible: image!=null,
+                                      child: SizedBox(
+                                          height: 100,
+                                          child: Image.network('https://api.openweathermap.org/img/w/$image.png')),
+                                    ),
+                                  ),
+                                  Text(
+                                    mydata != null
+                                        ? mydata['list'][index]['main']['temp']
+                                        .toString()
+                                        : '',
+                                    style:
+                                    TextStyle(
+                                        fontSize: 13, color: Colors.black),
+                                  )
+                                  //  Text('35\u2103'),
+                                ],
+                              ),
                             ),
-                          ),
-                        );
+                          );
+                        }else{
+                          return Container();
+                        }
                       }),
                 ),
                 SizedBox(
@@ -232,7 +236,7 @@ class _weatherState extends State<weather> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Next 7 Days',
+                      'Next 5 Days',
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 15,
@@ -249,67 +253,100 @@ class _weatherState extends State<weather> {
                 ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: 7,
+                    itemCount: mydata !=null?mydata["list"].length:0,
                     itemBuilder: (BuildContext contaxt, int index) {
-                      var days = DateFormat('EEEE').format(
+                      var days = DateFormat('EEE').format(
                           DateTime.now().add(Duration(days: index + 1)));
-
-                      return Card(
-                          child: Container(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 12, horizontal: 8),
-                          child: Row(
-                            children: [
-                              Text('$days'),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.sunny,
-                                    color: Colors.yellow,
-                                    size: 20,
-                                  )),
-                              Text('36\u2103'),
-                              Padding(padding: EdgeInsets.only(right: 100)),
-                              Column(
-                                children: [
-                                  Text('Max'),
-                                  Text(
-                                    mydata!=null? mydata['list'][0]['main']['temp_max'].toString():'',
-                                    style:
-                                    TextStyle(fontSize: 15, color: Colors.black),
+                      if(index%8==0) {
+                        return  Card(
+                              child: Container(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 12, horizontal: 8),
+                                  child: Row(
+                                    children: [
+                                      Text('$days'),
+                                      IconButton(
+                                        onPressed: () {},
+                                        icon: Visibility(
+                                          visible: image != null,
+                                          child: SizedBox(
+                                              height: 300,
+                                              child: Image.network(
+                                                  'https://api.openweathermap.org/img/w/$image.png',
+                                                height: 100,
+                                              )),
+                                        ),
+                                      ),
+                                      // IconButton(
+                                      //     onPressed: () {},
+                                      //     icon: Icon(
+                                      //       Icons.sunny,
+                                      //       color: Colors.yellow,
+                                      //       size: 20,
+                                      //     )),
+                                      //    Text('36\u2103'),
+                                      Text(
+                                        mydata != null
+                                            ? mydata['list'][index]['main']['temp']
+                                            .toString()
+                                            : '',
+                                        style:
+                                        TextStyle(
+                                            fontSize: 13, color: Colors.black),
+                                      ),
+                                      Padding(
+                                          padding: EdgeInsets.only(right: 100)),
+                                      Column(
+                                        children: [
+                                          Text('Max'),
+                                          Text(
+                                            mydata != null
+                                                ? mydata['list'][index]['main']['temp_max']
+                                                .toString()
+                                                : '',
+                                            style:
+                                            TextStyle(fontSize: 15,
+                                                color: Colors.black),
+                                          ),
+                                        ],
+                                      ),
+                                      Text('/'),
+                                      Column(
+                                        children: [
+                                          Text('Min'),
+                                          Text(
+                                            mydata != null
+                                                ? mydata['list'][index]['main']['temp_min']
+                                                .toString()
+                                                : '',
+                                            style:
+                                            TextStyle(fontSize: 15,
+                                                color: Colors.black),
+                                          ),
+                                        ],
+                                      ),
+                                      // RichText(
+                                      //     text: TextSpan(children: [
+                                      //   TextSpan(
+                                      //       text: '39\u2103 /',
+                                      //       style: TextStyle(
+                                      //           color: Colors.black, fontSize: 16))
+                                      // ])),
+                                      // RichText(
+                                      //     text: TextSpan(children: [
+                                      //   TextSpan(
+                                      //       text: '26\u2103 ',
+                                      //       style: TextStyle(
+                                      //           color: Colors.grey, fontSize: 16))
+                                      // ]))
+                                    ],
                                   ),
-                                ],
-                              ),
-                              Text('/'),
-                              Column(
-                                children: [
-                                  Text('Min'),
-                                  Text(
-                                    mydata!=null? mydata['list'][0]['main']['temp_min'].toString():'',
-                                    style:
-                                    TextStyle(fontSize: 15, color: Colors.black),
-                                  ),
-                                ],
-                              ),
-                              // RichText(
-                              //     text: TextSpan(children: [
-                              //   TextSpan(
-                              //       text: '39\u2103 /',
-                              //       style: TextStyle(
-                              //           color: Colors.black, fontSize: 16))
-                              // ])),
-                              // RichText(
-                              //     text: TextSpan(children: [
-                              //   TextSpan(
-                              //       text: '26\u2103 ',
-                              //       style: TextStyle(
-                              //           color: Colors.grey, fontSize: 16))
-                              // ]))
-                            ],
-                          ),
-                        ),
-                      ));
+                                ),
+                              ));
+                        }else{
+                        return Container();
+                      }
                     }),
               ],
             ),
