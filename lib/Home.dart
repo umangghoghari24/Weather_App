@@ -100,7 +100,7 @@ class _weatherState extends State<weather> {
                       icon: Visibility(
                         visible: image!=null,
                         child: SizedBox(
-                          height: 300,
+                          height: 50,width: 50,
                             child: Image.network('https://api.openweathermap.org/img/w/$image.png')),
                       ),
                     ),
