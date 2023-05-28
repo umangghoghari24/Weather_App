@@ -137,7 +137,7 @@ class _weatherState extends State<weather> {
                         //           letterSpacing: 3))
                         // ]))
                       ],
-                    )
+                    ),
                   ],
                 ),
                 Row(
@@ -185,6 +185,9 @@ class _weatherState extends State<weather> {
                       itemCount: mydata !=null?mydata["list"].length:0,
                       //6,
                       itemBuilder: (BuildContext context, int index) {
+
+
+
                         if(index%4==0) {
                           return Container(
                             padding: EdgeInsets.all(11),
@@ -196,7 +199,7 @@ class _weatherState extends State<weather> {
                               child: Column(
                                 children: [
                                   Text(
-                                    '${index + 1} AM',
+                                    '${index + 1 } AM',
                                   ),
                                   // Icon(
                                   //   Icons.sunny,
@@ -260,8 +263,10 @@ class _weatherState extends State<weather> {
                     shrinkWrap: true,
                     itemCount: mydata !=null?mydata["list"].length:0,
                     itemBuilder: (BuildContext contaxt, int index) {
+
                       var days = DateFormat('EEE').format(
-                          DateTime.now().add(Duration(days: index + 1)));
+                          DateTime.now().add(Duration(days: index )));
+
                       if(index%8==0) {
                         return  Card(
                               child: Container(
@@ -327,7 +332,7 @@ class _weatherState extends State<weather> {
                                                 : '',
                                             style:
                                             TextStyle(fontSize: 15,
-                                                color: Colors.black),
+                                                color: Colors.grey),
                                           ),
                                         ],
                                       ),
