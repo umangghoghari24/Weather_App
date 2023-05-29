@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/citys.dart';
-import 'package:weather_app/grid.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:location/location.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class weather extends StatefulWidget {
   const weather({Key? key}) : super(key: key);
@@ -22,7 +22,8 @@ class _weatherState extends State<weather> {
   bool show = true;
 
   var image;
-
+  double _temp=0;
+  double final_temp=0;
 
   Future<void> getData() async {
     var citys = city.text;
@@ -35,22 +36,35 @@ class _weatherState extends State<weather> {
         mydata = data ;
          image = data['list'][0]['weather'][0]['icon'].toString();
       });
-   //   print(mydata["list"][0]["weather"][0]["icon"]);
-       print('https://api.openweathermap.org/img/w/$image.png');
+    //  print(mydata["list"][0]["weather"][0]["icon"]);
+     //  print('https://api.openweathermap.org/img/w/$image.png');
     } else {
       print('something went wrong');
     }
   }
 
+  late LocationData _currentPosition;
+  // final Location location = Location();
+  Future<void> getLocation() async{
+    if(await Permission.location.isGranted){
+      _currentPosition = await Location().getLocation();
+      print("Location");
+      print(_currentPosition.latitude);
+      print(_currentPosition.longitude);
+    }else{
+      Permission.location.request();
+    }
+  }
   TextEditingController city = TextEditingController();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    getLocation();
    getData();
   }
+
 
   Widget build(BuildContext context) {
 

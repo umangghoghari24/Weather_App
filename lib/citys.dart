@@ -44,6 +44,8 @@ class _citysState extends State<citys> {
                     ).toList(),
                   value: selectedValue,
                   onChanged: (value) {
+                      print(value);
+
                       setState(() {
                         selectedValue = value as String;
                       });
