@@ -17,15 +17,20 @@ class weather extends StatefulWidget {
 class _weatherState extends State<weather> {
   @override
   int Selected = 0;
-  var mydata;
+
   var  main, icon, temp, pressure, temp_max, temp_min, speed;
   bool show = true;
 
   var image;
-  double _temp=0;
-  double final_temp=0;
+  var mydata;
+ // String text = '';
+  var cityname;
+
 
   Future<void> getData() async {
+
+
+  
     var citys = city.text;
     var key = 'ff0d0154a0fbf7736676e415048f620b';
     var response = await http.get(Uri.parse(
@@ -44,14 +49,33 @@ class _weatherState extends State<weather> {
   }
 
   late LocationData _currentPosition;
-  // final Location location = Location();
+  var late;
+  var long;
+
   Future<void> getLocation() async{
     if(await Permission.location.isGranted){
-      _currentPosition = await Location().getLocation();
-      print("Location");
+       _currentPosition = await Location().getLocation();
+      // // pressure(_currentPosition);
+      //   print("Location");
       print(_currentPosition.latitude);
       print(_currentPosition.longitude);
-    }else{
+
+      setState(() {
+        late = _currentPosition.latitude.toString();
+        long = _currentPosition.longitude.toString();
+      });
+
+      String url ='https://api.openweathermap.org/data/2.5/forecast?late=$late&long=$long&appid=ff0d0154a0fbf7736676e415048f620b';
+      var keys = 'ff0d0154a0fbf7736676e415048f620b';
+      var response = await http.get (Uri.parse(url));
+      if (response.statusCode == 200) {
+        var mydata1 = await jsonDecode(response.body);
+     //   Navigator.push(context, MaterialPageRoute(builder: (context) => weather()));
+        print(response.body);
+      } else {
+        print('something went wrong');
+      }
+  }else{
       Permission.location.request();
     }
   }
@@ -190,7 +214,7 @@ class _weatherState extends State<weather> {
                   ],
                 ),
                 Divider(
-                  thickness: 1,
+                  thickness: 1.5,
                 ),
                 SizedBox(
                   height: 100,
@@ -199,8 +223,6 @@ class _weatherState extends State<weather> {
                       itemCount: mydata !=null?mydata["list"].length:0,
                       //6,
                       itemBuilder: (BuildContext context, int index) {
-
-
 
                         if(index%4==0) {
                           return Container(
