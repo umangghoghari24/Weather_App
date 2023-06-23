@@ -32,17 +32,18 @@ class _getstartState extends State<getstart> {
       });
 
       String url ='https://api.openweathermap.org/data/2.5/forecast?late=$late&long=$long&appid=ff0d0154a0fbf7736676e415048f620b';
-      print(url);
+     print(url);
 
-      // var keys = 'ff0d0154a0fbf7736676e415048f620b';
-      // var response = await http.get (Uri.parse(url));
-      // if (response.statusCode == 200) {
-      //   var mydata1 = await jsonDecode(response.body);
-      // //  print(response.body);
-      //       Navigator.push(context, MaterialPageRoute(builder: (context) => weather()));
-      // } else {
-      //   print('something went wrong');
-      // }
+      var keys = 'ff0d0154a0fbf7736676e415048f620b';
+      var response = await http.get (Uri.parse(url));
+      if (response.statusCode == 200) {
+        var mydata1 = await jsonDecode(response.body);
+      //  print(response.body);
+            Navigator.push(context, MaterialPageRoute(builder: (context) => weather()));
+      }
+      else {
+        print('something went wrong');
+      }
     }else{
       Permission.location.request();
     }
