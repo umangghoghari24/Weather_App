@@ -24,13 +24,11 @@ class _weatherState extends State<weather> {
   var image;
   var mydata;
   var mydata1;
- // String text = '';
-  var cityname;
+
+  var selectedValue;
 
 
   Future<void> getData() async {
-
-
 
     var citys = city.text;
     var key = 'ff0d0154a0fbf7736676e415048f620b';
@@ -97,7 +95,7 @@ class _weatherState extends State<weather> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Surat',
+                  mydata!=null? mydata['city']['name'].toString():'',
                   style: TextStyle(fontSize: 30,color: Colors.white),
                 ),
                 SizedBox(height: 5,),

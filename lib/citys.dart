@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:weather_app/Home.dart';
+import 'package:http/http.dart' as http;
+import 'package:location/location.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'dart:convert';
+
+
 class citys extends StatefulWidget {
   const citys({Key? key}) : super(key: key);
 
@@ -17,6 +23,21 @@ class _citysState extends State<citys> {
     'Navsari',
     'Valsad'
   ];
+
+  Future<void> getData(String $selectedValue) async {
+
+    var key = 'ff0d0154a0fbf7736676e415048f620b';
+    var response = await http.get(Uri.parse(
+        'https://api.openweathermap.org/data/2.5/forecast?q=$selectedValue&appid=$key'));
+    print('api.openweathermap.org/data/2.5/forecast?q=$selectedValue&appid=$key');
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      var data = await jsonDecode(response.body);
+    } else {
+      print('something went wrong');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +69,8 @@ class _citysState extends State<citys> {
                       print(value);
 
                       setState(() {
-                        selectedValue = value as String;
+                        selectedValue = value;
+                        // print(selectedValue);
                       });
                   },
                   buttonStyleData: ButtonStyleData(
@@ -61,6 +83,7 @@ class _citysState extends State<citys> {
                 ),
               ),SizedBox(height: 500,),
               ElevatedButton(onPressed: () {
+                getData('value');
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>weather()));
               },
                   child: Text('Submit'))
