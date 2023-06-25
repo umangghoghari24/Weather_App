@@ -251,7 +251,7 @@ class _weatherState extends State<weather> {
                     Text(
                       'Next 5 Days',
                       style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.white,
                           fontSize: 15,
                           fontWeight: FontWeight.bold),
                     ),
