@@ -24,12 +24,13 @@ class _citysState extends State<citys> {
     'Valsad'
   ];
 
+
   Future<void> getData(String $selectedValue) async {
 
     var key = 'ff0d0154a0fbf7736676e415048f620b';
     var response = await http.get(Uri.parse(
         'https://api.openweathermap.org/data/2.5/forecast?q=$selectedValue&appid=$key'));
-    print('api.openweathermap.org/data/2.5/forecast?q=$selectedValue&appid=$key');
+   print('api.openweathermap.org/data/2.5/forecast?q=$selectedValue&appid=$key');
     print(response.statusCode);
     if (response.statusCode == 200) {
       var data = await jsonDecode(response.body);

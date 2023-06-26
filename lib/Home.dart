@@ -67,12 +67,12 @@ class _weatherState extends State<weather> {
         title: Text('$date'),
         backgroundColor: Colors.blueAccent,
         actions: [
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.light_mode,
-                color: Colors.black,
-              )),
+          // IconButton(
+          //     onPressed: () {},
+          //     icon: Icon(
+          //       Icons.light_mode,
+          //       color: Colors.black,
+          //     )),
           IconButton(
               onPressed: () {
                 Navigator.pushReplacement((context),
