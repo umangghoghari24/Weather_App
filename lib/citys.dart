@@ -30,10 +30,9 @@ class _citysState extends State<citys> {
     var key = 'ff0d0154a0fbf7736676e415048f620b';
     var response = await http.get(Uri.parse(
         'https://api.openweathermap.org/data/2.5/forecast?q=$selectedValue&appid=$key'));
-   print('api.openweathermap.org/data/2.5/forecast?q=$selectedValue&appid=$key');
-    print(response.statusCode);
     if (response.statusCode == 200) {
       var data = await jsonDecode(response.body);
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>weather(mydata: data)));
     } else {
       print('something went wrong');
     }
@@ -85,7 +84,6 @@ class _citysState extends State<citys> {
               ),SizedBox(height: 500,),
               ElevatedButton(onPressed: () {
                 getData('value');
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>weather()));
               },
                   child: Text('Submit'))
             ],

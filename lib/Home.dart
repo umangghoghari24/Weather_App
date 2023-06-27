@@ -8,7 +8,8 @@ import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class weather extends StatefulWidget {
-  const weather({Key? key}) : super(key: key);
+  final mydata;
+  const weather({required  this.mydata,Key? key}) : super(key: key);
 
   @override
   State<weather> createState() => _weatherState();
@@ -23,27 +24,33 @@ class _weatherState extends State<weather> {
 
   var image;
   var mydata;
-  var mydata1;
 
   var selectedValue;
 
 
   Future<void> getData() async {
 
-    var citys = city.text;
-    var key = 'ff0d0154a0fbf7736676e415048f620b';
-    var response = await http.get(Uri.parse(
-        'https://api.openweathermap.org/data/2.5/forecast?q=surat&appid=$key'));
-    if (response.statusCode == 200) {
-      var data = await jsonDecode(response.body);
+    if(widget.mydata !=null) {
       setState(() {
-        mydata = data ;
-         image = data['list'][0]['weather'][0]['icon'].toString();
+        mydata=widget.mydata;
       });
-    //  print(mydata["list"][0]["weather"][0]["icon"]);
-     //  print('https://api.openweathermap.org/img/w/$image.png');
-    } else {
-      print('something went wrong');
+
+    }else {
+      // var citys = city.text;
+      // var key = 'ff0d0154a0fbf7736676e415048f620b';
+      // var response = await http.get(Uri.parse(
+      //     'https://api.openweathermap.org/data/2.5/forecast?q=$selectedValue&appid=$key'));
+      // if (response.statusCode == 200) {
+      //   var data = await jsonDecode(response.body);
+      //   setState(() {
+      //     mydata = data;
+      //     image = data['list'][0]['weather'][0]['icon'].toString();
+      //   });
+      //   //  print(mydata["list"][0]["weather"][0]["icon"]);
+      //   //  print('https://api.openweathermap.org/img/w/$image.png');
+      // } else {
+      //   print('something went wrong');
+      // }
     }
   }
 
@@ -95,7 +102,7 @@ class _weatherState extends State<weather> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  mydata!=null? mydata['city']['name'].toString():'',
+                  mydata!=null? mydata['city']['name'].toString():'My date',
                   style: TextStyle(fontSize: 30,color: Colors.white),
                 ),
                 SizedBox(height: 5,),

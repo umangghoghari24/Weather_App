@@ -37,8 +37,7 @@ class _getstartState extends State<getstart> {
       var response = await http.get (Uri.parse(url));
       if (response.statusCode == 200) {
         var mydata1 = await jsonDecode(response.body);
-       print(response.body);
-            Navigator.push(context, MaterialPageRoute(builder: (context) => weather()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => weather(mydata: mydata1)));
       }
       else {
         print('something went wrong');
