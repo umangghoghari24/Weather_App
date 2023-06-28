@@ -37,7 +37,7 @@ class _getstartState extends State<getstart> {
       var response = await http.get (Uri.parse(url));
       if (response.statusCode == 200) {
         var mydata1 = await jsonDecode(response.body);
-          Navigator.push(context, MaterialPageRoute(builder: (context) => weather(mydata: mydata1)));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => weather()));
       }
       else {
         print('something went wrong');
@@ -52,12 +52,19 @@ class _getstartState extends State<getstart> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-          child:
-          Center(
-            child: ElevatedButton(onPressed: () {
-              getLocation();
-            },
-                child: Text('Get Started')),
+        decoration: BoxDecoration(
+        image: DecorationImage(
+        image: AssetImage("assets/image/weatherlogo.jpg"),
+        ),
+    ),
+
+          child: Center(
+            child: SizedBox(
+              child: ElevatedButton(onPressed: () {
+                getLocation();
+              },
+                  child: Text('Get Started')),
+            ),
           ),
         )
     );

@@ -32,7 +32,7 @@ class _citysState extends State<citys> {
         'https://api.openweathermap.org/data/2.5/forecast?q=$selectedValue&appid=$key'));
     if (response.statusCode == 200) {
       var data = await jsonDecode(response.body);
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>weather(mydata: data)));
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>weather()));
     } else {
       print('something went wrong');
     }
